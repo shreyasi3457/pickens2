@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meet Biscuit — Pickens County Humane Society</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF6F0;
+    --warm-brown: #6B4226;
+    --terracotta: #C0593A;
+    --sage: #7A9E7E;
+    --golden: #E8A838;
+    --navy: #1C2B4A;
+    --light-sage: #EBF2EC;
+    --paw-tan: #D4A96A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+  }
+
+  nav {
+    background: var(--navy);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(28,43,74,0.3);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+
+  .logo-paw {
+    width: 42px; height: 42px;
+    background: var(--golden);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    color: white; font-size: 1rem; line-height: 1.2;
+  }
+
+  .logo-text span {
+    display: block; font-size: 0.7rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600; color: var(--golden);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--golden); }
+
+  /* BREADCRUMB */
+  .breadcrumb {
+    padding: 1rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    font-size: 0.82rem;
+    color: #999;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb a { color: var(--terracotta); text-decoration: none; font-weight: 700; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  /* MAIN LAYOUT */
+  .profile-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  /* LEFT: IMAGE + GALLERY */
+  .photo-section {}
+
+  .main-photo {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 24px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5e8d0, #e8c99a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  .photo-thumbs {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .thumb {
+    width: 80px; height: 80px;
+    border-radius: 12px;
+    background: #e8e0d4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: border-color 0.2s;
+    overflow: hidden;
+  }
+
+  .thumb.active { border-color: var(--golden); }
+  .thumb:hover { border-color: var(--terracotta); }
+
+  .about-section {
+    margin-top: 2rem;
+    background: white;
+    border-radius: 20px;
+    padding: 1.8rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .about-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .about-section p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: #444;
+  }
+
+  .traits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .trait {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #444;
+  }
+
+  .trait-icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: var(--light-sage);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; flex-shrink: 0;
+  }
+
+  /* RIGHT: SIDEBAR */
+  .sidebar {
+    position: sticky;
+    top: 90px;
+  }
+
+  .name-block {
+    margin-bottom: 1.5rem;
+  }
+
+  .species-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #FEF0EC;
+    color: var(--terracotta);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: 0.6rem;
+  }
+
+  .animal-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .animal-breed {
+    color: #888;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+  }
+
+  .tag-dog { background: #FEF0EC; color: var(--terracotta); }
+  .tag-male { background: #EDF3FE; color: #2563EB; }
+  .tag-female { background: #FEF0F7; color: #BE185D; }
+  .tag-young { background: #FEFCE8; color: #A16207; }
+  .tag-adult { background: #F3F4F6; color: #4B5563; }
+  .tag-senior { background: #FFF3E0; color: #C25700; }
+  .tag-foster { background: #FFF7ED; color: #EA580C; }
+  .tag-good-kids { background: #ECFDF5; color: #065F46; }
+  .tag-vaccinated { background: #F0FDF4; color: #15803D; }
+  .tag-neutered { background: #EFF6FF; color: #1D4ED8; }
+
+  /* QUICK STATS */
+  .quick-stats {
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--navy);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #aaa;
+    display: block;
+    margin-top: 0.1rem;
+  }
+
+  .stat-divider {
+    grid-column: 1 / -1;
+    height: 1px;
+    background: #F0EBE3;
+  }
+
+  /* CTA CARD */
+  .cta-card {
+    background: var(--navy);
+    border-radius: 20px;
+    padding: 1.8rem;
+    margin-bottom: 1.2rem;
+    color: white;
+  }
+
+  .cta-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-card p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+  }
+
+  .btn-primary {
+    display: block;
+    width: 100%;
+    background: var(--golden);
+    color: var(--navy);
+    text-align: center;
+    padding: 0.9rem 1.5rem;
+    border-radius: 14px;
+    font-weight: 900;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.2s;
+    margin-bottom: 0.6rem;
+  }
+
+  .btn-primary:hover {
+    background: #f0b840;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(232,168,56,0.35);
+  }
+
+  .btn-secondary {
+    display: block;
+    width: 100%;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    text-align: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.18);
+    transform: translateY(-2px);
+  }
+
+  /* FOSTER NOTE */
+  .foster-note {
+    background: #FFF7ED;
+    border: 1.5px solid #FED7AA;
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .foster-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+  .foster-note p {
+    font-size: 0.83rem;
+    color: #92400E;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  /* SHELTER INFO */
+  .shelter-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    font-size: 0.83rem;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  .shelter-card strong { color: var(--navy); font-weight: 800; display: block; margin-bottom: 0.4rem; }
+
+  /* SIMILAR SECTION */
+  .similar-section {
+    grid-column: 1 / -1;
+    margin-top: 1rem;
+  }
+
+  .similar-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    color: var(--navy);
+  }
+
+  .similar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+
+  .mini-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .mini-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+
+  .mini-img {
+    height: 120px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+  }
+
+  .mini-body { padding: 0.75rem; }
+
+  .mini-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .mini-breed { font-size: 0.75rem; color: #999; font-weight: 600; }
+
+  /* ANIMATION */
+  .profile-layout { animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 768px) {
+    .profile-layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .similar-grid { grid-template-columns: repeat(2, 1fr); }
+    .animal-name { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="logo-text">
+      Pickens County<br>Humane Society
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="adopt.html" class="active">Adopt</a></li>
+    <li><a href="#">Foster</a></li>
+    <li><a href="#">Volunteer</a></li>
+    <li><a href="#">Donate</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="breadcrumb">
+  <a href="#">Home</a> › <a href="adopt.html">Adopt</a> › <a href="adopt.html">Dogs</a> › Biscuit
+</div>
+
+<div class="profile-layout">
+
+  <!-- LEFT: PHOTOS + ABOUT -->
+  <div>
+    <div class="photo-section">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Max">
+      <div class="photo-thumbs">
+  
+      </div>
+    </div>
+
+    <div class="about-section">
+      <h3>🐾 About Biscuit</h3>
+      <p>
+        Biscuit came to us as a stray in the spring, found wandering near Pickens city park with the happiest tail wag you've ever seen on a lost dog. Despite everything, he was friendly to every person and every dog he met — which tells you a lot about who he is.
+      </p>
+      <p style="margin-top:0.8rem">
+        He's completed basic training and knows sit, stay, shake, and "gentle." He walks well on a leash once he burns off his initial excitement. He loves playing fetch, riding in cars, and sneaking onto the couch when he thinks you're not looking. He adores children and has been tested with dogs of all sizes.
+      </p>
+      <p style="margin-top:0.8rem">
+        Biscuit is ready for his forever home. He'll be a loyal shadow, a goofball companion, and your most enthusiastic alarm clock. He deserves a family that will love him as unconditionally as he will love them.
+      </p>
+    </div>
+
+    <div class="about-section" style="margin-top:1rem">
+      <h3>✅ Biscuit's Personality</h3>
+      <div class="traits-grid">
+        <div class="trait"><div class="trait-icon">🧒</div> Great with kids</div>
+        <div class="trait"><div class="trait-icon">🐕</div> Dog-friendly</div>
+        <div class="trait"><div class="trait-icon">🎾</div> Loves to play</div>
+        <div class="trait"><div class="trait-icon">🚗</div> Good in cars</div>
+        <div class="trait"><div class="trait-icon">🏃</div> High energy</div>
+        <div class="trait"><div class="trait-icon">🛋️</div> Couch cuddler</div>
+        <div class="trait"><div class="trait-icon">🧠</div> Quick learner</div>
+        <div class="trait"><div class="trait-icon">🐱</div> Cat-untested</div>
+      </div>
+    </div>
+
+    <div class="about-section" style="margin-top:1rem">
+      <h3>🏥 Health & Care</h3>
+      <p>Biscuit has been fully vetted through our shelter program. He is up to date on all vaccinations (DHPP, bordetella, rabies), has been tested for heartworm (negative), is on monthly preventatives, has been microchipped, and is neutered. He is healthy and ready to go home.</p>
+    </div>
+
+    <!-- SIMILAR ANIMALS -->
+    <div class="similar-section">
+      <h2>Other Dogs Looking for Homes</h2>
+      <div class="similar-grid">
+        <a class="mini-card" href="#">
+          <div class="mini-img" style="background:linear-gradient(135deg,#d0d8f5,#a0addb)">🐾</div>
+          <div class="mini-body">
+            <div class="mini-name">Luna</div>
+            <div class="mini-breed">Hound Mix · 4 yrs · Female</div>
+          </div>
+        </a>
+        <a class="mini-card" href="#">
+          <div class="mini-img" style="background:linear-gradient(135deg,#f5d0d8,#e89aad)">🐕‍🦺</div>
+          <div class="mini-body">
+            <div class="mini-name">Rosie</div>
+            <div class="mini-breed">Beagle Mix · 1 yr · Female</div>
+          </div>
+        </a>
+        <a class="mini-card" href="#">
+          <div class="mini-img" style="background:linear-gradient(135deg,#f5f0d0,#e8d88a)">🐶</div>
+          <div class="mini-body">
+            <div class="mini-name">Molly</div>
+            <div class="mini-breed">Golden Mix · 5 yrs · Female</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT: SIDEBAR -->
+  <div class="sidebar">
+
+    <div class="name-block">
+      <div class="species-badge">🐕 Dog</div>
+      <div class="animal-name">Biscuit</div>
+      <div class="animal-breed">Labrador Mix · Available at Shelter</div>
+      <div class="tags-row">
+        <span class="tag tag-male">♂ Male</span>
+        <span class="tag tag-young">Young · ~2 yrs</span>
+        <span class="tag tag-good-kids">Good w/ Kids</span>
+        <span class="tag tag-vaccinated">✓ Vaccinated</span>
+        <span class="tag tag-neutered">✓ Neutered</span>
+      </div>
+    </div>
+
+    <div class="quick-stats">
+      <div class="stat">
+        <span class="stat-value">~2 yrs</span>
+        <span class="stat-label">Age</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">~45 lbs</span>
+        <span class="stat-label">Weight</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-value">Medium</span>
+        <span class="stat-label">Size</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">5 months</span>
+        <span class="stat-label">At Shelter</span>
+      </div>
+    </div>
+
+    <div class="cta-card">
+      <h3>Ready to meet Biscuit?</h3>
+      <p>Walk in during shelter hours — no appointment needed. Adoptions are first-come, first-served.</p>
+      <a href="#" class="btn-primary">📝 Fill Out Adoption Form</a>
+      <a href="tel:8648783313" class="btn-secondary">📞 Call (number)</a>
+    </div>
+
+    <div class="foster-note">
+      <div class="foster-icon">🏠</div>
+      <p>Biscuit is currently at the shelter. Walk-ins welcome — no appointment needed!</p>
+    </div>
+
+    <div class="shelter-card">
+      <strong>📍 Pickens County Humane Society</strong>
+      info<br>
+      <strong style="margin-top:0.6rem">⏰ Hours</strong>
+      <br>
+      <br>
+      <br>
+      <strong style="margin-top:0.6rem">🐾 Adoption Fee</strong>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  // Thumb switcher
+  document.querySelectorAll('.thumb').forEach((t, i) => {
+    const emojis = ['🐕','🐾','🎾','💤'];
+    const bgs = [
+      'linear-gradient(135deg,#f5e8d0,#e8c99a)',
+      'linear-gradient(135deg,#d0e8f5,#90c0d8)',
+      'linear-gradient(135deg,#d0f0d8,#90c8a0)',
+      'linear-gradient(135deg,#f0d8f0,#c898c8)'
+    ];
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.thumb').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      const main = document.getElementById('mainPhoto');
+      main.style.background = bgs[i];
+      main.textContent = emojis[i];
+    });
+  });
+</script>
+</body>
+</html>

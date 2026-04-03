@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adopt — Pickens County Humane Society</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF6F0;
+    --warm-brown: #6B4226;
+    --terracotta: #C0593A;
+    --sage: #7A9E7E;
+    --golden: #E8A838;
+    --navy: #1C2B4A;
+    --light-sage: #EBF2EC;
+    --paw-tan: #D4A96A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--navy);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(28,43,74,0.3);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+
+  .logo-paw {
+    width: 42px;
+    height: 42px;
+    background: var(--golden);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .logo-text span {
+    display: block;
+    font-size: 0.7rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    color: var(--golden);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--golden); }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #2d4a7a 100%);
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '🐾';
+    position: absolute;
+    font-size: 12rem;
+    opacity: 0.04;
+    top: -2rem;
+    right: -2rem;
+    transform: rotate(20deg);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--golden);
+    margin-bottom: 0.75rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .hero p {
+    color: rgba(255,255,255,0.75);
+    font-size: 1rem;
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+
+  .hero-info-bar {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+
+  .info-pill {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  /* CATEGORY TABS */
+  .category-section {
+    background: white;
+    border-bottom: 2px solid rgba(0,0,0,0.06);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 70px;
+    z-index: 90;
+  }
+
+  .cat-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.5rem;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .cat-btn.dogs { background: #FEF0EC; color: var(--terracotta); border-color: var(--terracotta); }
+  .cat-btn.cats { background: #EBF2EC; color: #3a7a3e; border-color: #3a7a3e; }
+  .cat-btn.small { background: #F4EDFA; color: #7B3FA0; border-color: #7B3FA0; }
+  .cat-btn.all { background: var(--navy); color: white; border-color: var(--navy); }
+
+  .cat-btn:hover, .cat-btn.active {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .cat-count {
+    background: currentColor;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 900;
+    opacity: 0.85;
+  }
+
+  /* FILTER BAR */
+  .filter-bar {
+    padding: 1.5rem 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+
+  .search-wrap {
+    flex: 1;
+    min-width: 220px;
+    position: relative;
+  }
+
+  .search-wrap input {
+    width: 100%;
+    padding: 0.7rem 1rem 0.7rem 2.6rem;
+    border: 2px solid #E5E0D8;
+    border-radius: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    background: white;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-wrap input:focus { border-color: var(--golden); }
+
+  .search-icon {
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    opacity: 0.4;
+  }
+
+  .result-count {
+    font-size: 0.88rem;
+    color: #888;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* GRID */
+  .animals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    padding: 0 2rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .animal-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    transition: all 0.25s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animal-card:nth-child(1) { animation-delay: 0.05s; }
+  .animal-card:nth-child(2) { animation-delay: 0.10s; }
+  .animal-card:nth-child(3) { animation-delay: 0.15s; }
+  .animal-card:nth-child(4) { animation-delay: 0.20s; }
+  .animal-card:nth-child(5) { animation-delay: 0.25s; }
+  .animal-card:nth-child(6) { animation-delay: 0.30s; }
+
+  .animal-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.13);
+  }
+
+  .card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    background: #e8e0d4;
+  }
+
+  .card-img-placeholder {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+  }
+
+  .card-body {
+    padding: 1.1rem 1.2rem 1.3rem;
+  }
+
+  .card-tags {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+  }
+
+  .tag-dog { background: #FEF0EC; color: var(--terracotta); }
+  .tag-cat { background: #EBF2EC; color: #3a7a3e; }
+  .tag-small { background: #F4EDFA; color: #7B3FA0; }
+  .tag-male { background: #EDF3FE; color: #2563EB; }
+  .tag-female { background: #FEF0F7; color: #BE185D; }
+  .tag-young { background: #FEFCE8; color: #A16207; }
+  .tag-adult { background: #F3F4F6; color: #4B5563; }
+  .tag-senior { background: #FFF3E0; color: #C25700; }
+  .tag-foster { background: #FFF7ED; color: #EA580C; }
+  .tag-good-kids { background: #ECFDF5; color: #065F46; }
+
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+  }
+
+  .card-breed {
+    font-size: 0.82rem;
+    color: #888;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+
+  .card-blurb {
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid #F0EBE3;
+  }
+
+  .meet-btn {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--terracotta);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .meet-btn::after { content: '→'; }
+
+  .card-age {
+    font-size: 0.78rem;
+    color: #aaa;
+    font-weight: 600;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+  }
+
+  footer strong { color: var(--golden); }
+
+  /* HIDDEN animals */
+  .animal-card.hidden { display: none; }
+
+  /* SECTION LABEL */
+  .section-label {
+    max-width: 1100px;
+    margin: 2rem auto 0;
+    padding: 0 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to right, #E5E0D8, transparent);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="logo-paw"></div>
+    <div class="logo-text">
+      Pickens County<br>Humane Society
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="adopt.html" class="active">Adopt</a></li>
+    <li><a href="#">Foster</a></li>
+    <li><a href="#">Volunteer</a></li>
+    <li><a href="#">Donate</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Find Your Forever Friend</div>
+  <h1>Every Pet Deserves<br>a Loving Home</h1>
+  <p>Walk-ins welcome during shelter hours.</p>
+  <div class="hero-info-bar">
+    <div class="info-pill">🕐 (times)</div>
+    <div class="info-pill">📍 (address)</div>
+    <div class="info-pill">📞 (phone number)</div>
+  </div>
+</div>
+
+<div class="category-section">
+  <button class="cat-btn all active" onclick="filterCategory('all', this)">🐾 All Animals <span class="cat-count" style="background:white;color:var(--navy)">12</span></button>
+  <button class="cat-btn dogs" onclick="filterCategory('dog', this)">🐕 Dogs <span class="cat-count">6</span></button>
+  <button class="cat-btn cats" onclick="filterCategory('cat', this)">🐈 Cats <span class="cat-count">4</span></button>
+  <button class="cat-btn small" onclick="filterCategory('small', this)">🐇 Small Critters <span class="cat-count">2</span></button>
+</div>
+
+<div class="filter-bar">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search by name or breed..." oninput="filterSearch()">
+  </div>
+  <div class="result-count" id="resultCount">Showing 12 animals</div>
+</div>
+
+<div class="section-label" id="sectionLabel">All Available Animals</div>
+
+<div class="animals-grid" id="animalsGrid">
+
+  <!-- DOGS -->
+  <a class="animal-card" href="animal.html?id=1" data-species="dog" data-name="Biscuit">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Max">
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="tag tag-dog">Dog</span>
+        <span class="tag tag-male">Male</span>
+        <span class="tag tag-young">Young</span>
+        <span class="tag tag-good-kids">Good w/ Kids</span>
+      </div>
+      <div class="card-name">Biscuit</div>
+      <div class="card-breed">Labrador Mix · ~2 years</div>
+      <div class="card-blurb">Sweet golden boy with the wiggliest tail you've ever seen. Loves fetch, belly rubs, and anyone who'll share their snacks.</div>
+      <div class="card-footer">
+        <span class="meet-btn">Meet Biscuit</span>
+        <span class="card-age">2 yrs</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="animal-card" href="animal.html?id=2" data-species="dog" data-name="Luna">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Max">
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="tag tag-dog">Dog</span>
+        <span class="tag tag-female">Female</span>
+        <span class="tag tag-adult">Adult</span>
+        <span class="tag tag-foster">In Foster</span>
+      </div>
+      <div class="card-name">Luna</div>
+      <div class="card-breed">Hound Mix · ~4 years</div>
+      <div class="card-blurb">A quiet and gentle soul who thrives with a calm household. She loves morning walks and lounging in sunny spots.</div>
+      <div class="card-footer">
+        <span class="meet-btn">Meet Luna</span>
+        <span class="card-age">4 yrs</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="animal-card" href="animal.html?id=3" data-species="dog" data-name="Duke">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Max">
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="tag tag-dog">Dog</span>
+        <span class="tag tag-male">Male</span>
+        <span class="tag tag-senior">Senior</span>
+      </div>
+      <div class="card-name">Duke</div>
+      <div class="card-breed">German Shepherd Mix · ~8 years</div>
+      <div class="card-blurb">Don't let the gray muzzle fool you — Duke is full of love and wisdom. Prefers a quiet home where he can nap in style.</div>
+      <div class="card-footer">
+        <span class="meet-btn">Meet Duke</span>
+        <span class="card-age">8 yrs</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="animal-card" href="animal.html?id=4" data-species="dog" data-name="Rosie">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Max">
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="tag tag-dog">Dog</span>
+        <span class="tag tag-female">Female</span>
+        <span class="tag tag-young">Young</span>
+        <span class="tag tag-good-kids">Good w/ Kids</span>
+      </div>
+      <div class="card-name">Rosie</div>
+      <div class="card-breed">Beagle Mix · ~1 year</div>
+      <div class="card-blurb">Rosie is pure joy in dog form. She'll follow your nose anywhere and loves meeting new friends — human or furry.</div>
+      <div class="card-footer">
+        <span class="meet-btn">Meet Rosie</span>
+        <span class="card-age">1 yr</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="animal-card" href="animal.html?id=5" data-species="dog" data-name="Ranger">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Max">
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="tag tag-dog">Dog</span>
+        <span class="tag tag-male">Male</span>
+        <span class="tag tag-adult">Adult</span>
+      </div>
+      <div class="card-name">Ranger</div>
+      <div class="card-breed">Border Collie Mix · ~3 years</div>
+      <div class="card-blurb">Smart as a whip and full of energy. Ranger thrives with an active owner who loves hiking, running, or frisbee.</div>
+      <div class="card-footer">
+        <span class="meet-btn">Meet Ranger</span>
+        <span class="card-age">3 yrs</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="animal-card" href="animal.html?id=6" data-species="dog" data-name="Molly">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Max">
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="tag tag-dog">Dog</span>
+        <span class="tag tag-female">Female</span>
+        <span class="tag tag-adult">Adult</span>
+        <span class="tag tag-good-kids">Good w/ Kids</span>
+      </div>
+      <div class="card-name">Molly</div>
+      <div class="card-breed">Golden Retriever Mix · ~5 years</div>
+      <div class="card-blurb">Molly is the definition of a family dog. Loves kids, cuddles on the couch, and treats more than anything in the world.</div>
+      <div class="card-footer">
+        <span class="meet-btn">Meet Molly</span>
+        <span class="card-age">5 yrs</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- CATS -->
+  <a class="animal-card" href="animal.html?id=7" data-species="cat" data-name="Mochi">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Max">
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="tag tag-cat">Cat</span>
+        <span class="tag tag-female">Female</span>
+        <span class="tag tag-young">Young</span>
+      </div>
+      <div class="card-name">Mochi</div>
+      <div class="card-breed">Domestic Shorthair · ~1 year</div>
+      <div class="card-blurb">Playful and endlessly curious, Mochi will have you laughing daily with her antics. Loves toy wands and window watching.</div>
+      <div class="card-footer">
+        <span class="meet-btn">Meet Mochi</span>
+        <span class="card-age">1 yr</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="animal-card" href="animal.html?id=8" data-species="cat" data-name="Oliver">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Max">
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="tag tag-cat">Cat</span>
+        <span class="tag tag-male">Male</span>
+        <span class="tag tag-adult">Adult</span>
+        <span class="tag tag-good-kids">Good w/ Kids</span>
+      </div>
+      <div class="card-name">Oliver</div>
+      <div class="card-breed">Tabby · ~3 years</div>
+      <div class="card-blurb">Oliver is a laid-back gentleman who greets everyone with a slow blink and a soft chirp. The perfect reading companion.</div>
+      <div class="card-footer">
+        <span class="meet-btn">Meet Oliver</span>
+        <span class="card-age">3 yrs</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="animal-card" href="animal.html?id=9" data-species="cat" data-name="Hazel">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Max">
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="tag tag-cat">Cat</span>
+        <span class="tag tag-female">Female</span>
+        <span class="tag tag-senior">Senior</span>
+        <span class="tag tag-foster">In Foster</span>
+      </div>
+      <div class="card-name">Hazel</div>
+      <div class="card-breed">Maine Coon Mix · ~9 years</div>
+      <div class="card-blurb">Hazel is royalty who knows it. She'll grace you with purrs and head-bumps on her own schedule — totally worth the wait.</div>
+      <div class="card-footer">
+        <span class="meet-btn">Meet Hazel</span>
+        <span class="card-age">9 yrs</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="animal-card" href="animal.html?id=10" data-species="cat" data-name="Ziggy">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Max">
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="tag tag-cat">Cat</span>
+        <span class="tag tag-male">Male</span>
+        <span class="tag tag-young">Young</span>
+      </div>
+      <div class="card-name">Ziggy</div>
+      <div class="card-breed">Siamese Mix · ~2 years</div>
+      <div class="card-blurb">Chatty and affectionate, Ziggy will follow you from room to room telling you about his day. Never a dull moment.</div>
+      <div class="card-footer">
+        <span class="meet-btn">Meet Ziggy</span>
+        <span class="card-age">2 yrs</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- SMALL CRITTERS -->
+  <a class="animal-card" href="animal.html?id=11" data-species="small" data-name="Clover">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Max">
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="tag tag-small">Small Critter</span>
+        <span class="tag tag-female">Female</span>
+        <span class="tag tag-adult">Adult</span>
+      </div>
+      <div class="card-name">Clover</div>
+      <div class="card-breed">Holland Lop Rabbit · ~2 years</div>
+      <div class="card-blurb">Soft as a cloud and twice as sweet, Clover loves exploring her pen and getting gentle ear scratches. Binky certified!</div>
+      <div class="card-footer">
+        <span class="meet-btn">Meet Clover</span>
+        <span class="card-age">2 yrs</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="animal-card" href="animal.html?id=12" data-species="small" data-name="Peanut">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Max">
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="tag tag-small">Small Critter</span>
+        <span class="tag tag-male">Male</span>
+        <span class="tag tag-young">Young</span>
+      </div>
+      <div class="card-name">Peanut</div>
+      <div class="card-breed">Guinea Pig · ~1 year</div>
+      <div class="card-blurb">Peanut is a tiny talker who wheeks for veggies with full commitment. An ideal first pet, full of personality.</div>
+      <div class="card-footer">
+        <span class="meet-btn">Meet Peanut</span>
+        <span class="card-age">1 yr</span>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<footer>
+  <strong>Pickens County Humane Society</strong> adresss, phone number, timing<br>
+  <small style="opacity:0.5;margin-top:0.4rem;display:block"></small>
+</footer>
+
+<script>
+  let currentFilter = 'all';
+
+  function filterCategory(species, btn) {
+    currentFilter = species;
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterSearch();
+
+    const labels = { all: 'All Available Animals', dog: 'Dogs Available for Adoption', cat: 'Cats Available for Adoption', small: 'Small Critters Available for Adoption' };
+    document.getElementById('sectionLabel').textContent = labels[species];
+  }
+
+  function filterSearch() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.animal-card');
+    let shown = 0;
+    cards.forEach(card => {
+      const matchSpecies = currentFilter === 'all' || card.dataset.species === currentFilter;
+      const matchName = card.dataset.name.toLowerCase().includes(query) || card.querySelector('.card-breed').textContent.toLowerCase().includes(query);
+      if (matchSpecies && matchName) { card.classList.remove('hidden'); shown++; }
+      else card.classList.add('hidden');
+    });
+    document.getElementById('resultCount').textContent = `Showing ${shown} animal${shown !== 1 ? 's' : ''}`;
+  }
+</script>
+</body>
+</html>
